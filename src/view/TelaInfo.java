@@ -6,18 +6,34 @@ import javax.swing.*;
 import javax.swing.event.*;
 import controle.*;
 
+/**
+
+Classe com todas as telas de Informações
+
+@author Gustavo, Felipe
+@since 2023
+@version 1.0
+*/
 public class TelaInfo implements ActionListener, ListSelectionListener {
 	private JFrame janela;
-	private JButton botaoAtualizar, botaoCriarCanal, botaoExibir, botaoAtualizarCanal;
+	private JButton botaoCriarCanal, botaoExibir, botaoCriarPrograma;
+	private JButton botaoAtualizarPerfil, botaoAtualizarCanal, botaoAtualizarProgramas;
 	private JLabel titulo;
 	private JLabel labelSubTitulo;
 	private JLabel labelCanaisFav;	
 	private JList<String> listaCanaisFav;
 	private String[] listaCanaisFavoritos = new String[50];
 	private String[] listaCanais = new String[50];
+	private String[] listaProgramas = new String[50];
 	private static ControleDados dados;
 	private static ControleUsuario userDados;
-	private JList<String> listaNomes;
+	private JList<String> listaNomesCanais, listaNomesProgramas;
+	
+/**
+Metodo para criaçao das telas contendo as informaçoes
+@param tipo de tela
+@param d - variavel da classe de controle contendo os dados  
+*/
 	
 	public void exibirInfo(int tipo, ControleDados d) {
 		dados = d;
@@ -34,13 +50,14 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 										userDados.getIdadeUsuario(0) + " anos");
 			labelSubTitulo.setBounds(30, 50, 300, 20);
 			
-			botaoAtualizar = new JButton("Atualizar");
-			botaoAtualizar.setBounds(290, 220, 85, 30);
+			botaoAtualizarPerfil = new JButton("Atualizar");
+			botaoAtualizarPerfil.setBounds(290, 220, 85, 30);
 			
 			labelCanaisFav = new JLabel("Canais Favoritos");
 			labelCanaisFav.setFont(new Font("Arial", Font.BOLD, 15));
 			labelCanaisFav.setBounds(30, 90, 300, 20);
 			
+			listaCanaisFavoritos = new ControleCanais(dados).getListaFavoritos();
 			listaCanaisFav = new JList<String>(listaCanaisFavoritos);
 			listaCanaisFav.setBounds(30, 120, 250, 130);
 			listaCanaisFav.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -50,13 +67,13 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 			this.janela.add(labelSubTitulo);
 			this.janela.add(labelCanaisFav);
 			this.janela.add(listaCanaisFav);
-			this.janela.add(botaoAtualizar);
+			this.janela.add(botaoAtualizarPerfil);
 			
 			this.janela.setLayout(null);
 			this.janela.setSize(400, 300);
 			this.janela.setVisible(true);
 			
-			botaoAtualizar.addActionListener(this);
+			botaoAtualizarPerfil.addActionListener(this);
 		}
 		if(tipo == 2){
 			janela = new JFrame("Canal");
@@ -65,10 +82,11 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
 			titulo.setBounds(30, 15, 300, 30);
 			
-			listaNomes = new JList<String>(listaCanais);
-			listaNomes.setBounds(30, 60, 250, 105);
-			listaNomes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-			listaNomes.setVisibleRowCount(10);
+			listaCanais = new ControleCanais(dados).getListaNomes();
+			listaNomesCanais = new JList<String>(listaCanais);
+			listaNomesCanais.setBounds(30, 60, 250, 105);
+			listaNomesCanais.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+			listaNomesCanais.setVisibleRowCount(10);
 			
 			botaoExibir = new JButton("Exibir Programação Diaria");
 			botaoCriarCanal = new JButton("Criar Canal");
@@ -79,7 +97,7 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 			botaoAtualizarCanal.setBounds(270, 225, 100, 30);			
 			
 			this.janela.add(titulo);
-			this.janela.add(listaNomes);
+			this.janela.add(listaNomesCanais);
 			this.janela.add(botaoExibir);
 			this.janela.add(botaoCriarCanal);
 			this.janela.add(botaoAtualizarCanal);
@@ -91,35 +109,87 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 			botaoAtualizarCanal.addActionListener(this);
 			botaoCriarCanal.addActionListener(this);
 			botaoExibir.addActionListener(this);
-			listaNomes.addListSelectionListener(this);
+			listaNomesCanais.addListSelectionListener(this);
 		}	
-	}
-	
-	
-	
-	
-	
-	
-	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
+		if(tipo == 3){
+			janela = new JFrame("Programas");
+			
+			titulo = new JLabel("Programas Existentes");
+			titulo.setFont(new Font("Arial", Font.BOLD, 20));
+			titulo.setBounds(30, 15, 300, 30);
+			
+			listaProgramas = new ControleProgramas(dados).getListaNomes();
+			listaNomesProgramas = new JList<String>(listaProgramas);
+			listaNomesProgramas.setBounds(30, 60, 250, 105);
+			listaNomesProgramas.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+			listaNomesProgramas.setVisibleRowCount(10);
+			
+			botaoExibir = new JButton("Buscar Programa Especifico");
+			botaoCriarPrograma = new JButton("Criar Programa");
+			botaoAtualizarProgramas = new JButton("Atualizar");
+			
+			botaoCriarPrograma.setBounds(30, 175, 130, 30);
+			botaoExibir.setBounds(170, 175, 200, 30);
+			botaoAtualizarProgramas.setBounds(270, 225, 100, 30);
+			
+			this.janela.add(titulo);
+			this.janela.add(listaNomesProgramas);
+			this.janela.add(botaoExibir);
+			this.janela.add(botaoCriarPrograma);
+			this.janela.add(botaoAtualizarProgramas);
 		
+			this.janela.setLayout(null);
+			this.janela.setSize(400, 300);
+			this.janela.setVisible(true);
+			
+			botaoAtualizarProgramas.addActionListener(this);
+			botaoCriarPrograma.addActionListener(this);
+			botaoExibir.addActionListener(this);
+			listaNomesProgramas.addListSelectionListener(this);
+		}
+	}			
+	
+	public void actionPerformed(ActionEvent e) { // metodo para captar ação do usuario
+		Object src = e.getSource();
+	
 		if (src == botaoCriarCanal) {
 			new TelaCadastro().cadastrar(2, dados, 0);
 		}
 		
+		if (src == botaoCriarPrograma) {
+			new TelaCadastro().cadastrar(3, dados, 0);
+		}
+		
 		if (src == botaoAtualizarCanal) {
-			listaNomes.setListData(new ControleCanais(dados).getListaNomes());
-			listaNomes.updateUI();
+			listaNomesCanais.setListData(new ControleCanais(dados).getListaNomes());
+			listaNomesCanais.updateUI();
+		}
+		
+		if (src == botaoAtualizarProgramas) {
+			listaNomesProgramas.setListData(new ControleProgramas(dados).getListaNomes());
+			listaNomesProgramas.updateUI();
+		}
+		
+		if (src == botaoAtualizarPerfil) {
+			listaCanaisFav.setListData(new ControleCanais(dados).getListaFavoritos());
+			listaCanaisFav.updateUI();
 		}
 		
 	}
 
+
 	public void valueChanged(ListSelectionEvent e) {
 		Object src = e.getSource();
 		
-		if (src == listaNomes && e.getValueIsAdjusting()) {
-			new TelaCadastro().cadastrar(5, dados, listaNomes.getSelectedIndex());
+		if (src == listaNomesCanais && e.getValueIsAdjusting()) {
+			new TelaCadastro().cadastrar(5, dados, listaNomesCanais.getSelectedIndex());
+		}
+		
+		if (src == listaNomesProgramas && e.getValueIsAdjusting()) {
+			new TelaCadastro().cadastrar(6, dados, listaNomesProgramas.getSelectedIndex());
 		}
 	}
+	
+	
 	
 }

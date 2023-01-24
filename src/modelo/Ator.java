@@ -2,22 +2,38 @@ package modelo;
 
 public class Ator extends Pessoa {
 	// Atributos
-	private String funcao;
+	private String papel;
 	
 	// Construtor
-	public Ator(String nome, int idade, String funcao) {
+	public Ator(String nome, int idade, String papel) {
 		this.nome = nome;
 		this.idade = idade;
-		this.funcao = funcao;
+		this.papel = papel;
 	}
 	
 	// Gets e Sets
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
-	public String getFuncao() {
-		return funcao;
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+	
+	public int getIdade() {
+		return idade;
+	}
+	
+	public void setPapel(String papel) {
+		this.papel = papel;
+	}
+	
+	public String getPapel() {
+		return papel;
 	}
 }
 

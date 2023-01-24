@@ -5,6 +5,14 @@ import java.awt.Font;
 import java.awt.event.*;
 import controle.*;
 
+/**
+
+Classe com todas as telas de menu
+
+@author Gustavo, Felipe
+@since 2023
+@version 1.0
+*/
 public class TelaMenu implements ActionListener {
 	private static JFrame janela;
 	private static JLabel titulo;
@@ -14,10 +22,15 @@ public class TelaMenu implements ActionListener {
 	private static JButton usuario;
 	public static ControleDados dados = new ControleDados();
 	
+/**
+Método para criação dos menus  
+@param tipo Tipo de tela
+*/
+	
 	public TelaMenu(int tipo) {
 		janela = new JFrame("Programação da TV");
 		
-		if (tipo == 1){
+		if (tipo == 1){ 
 			
 			titulo = new JLabel("Menu Login");
 			entrar = new JButton("Entrar");
@@ -48,6 +61,7 @@ public class TelaMenu implements ActionListener {
 			
 			usuario.addActionListener(this);
 			canal.addActionListener(this);
+			programa.addActionListener(this);
 			janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		
@@ -60,14 +74,15 @@ public class TelaMenu implements ActionListener {
 	
 	
 	public static void main(String[] args) {
-		TelaMenu menu = new TelaMenu(1);
+		TelaMenu menu = new TelaMenu(1); // criaçao da primeira tela 
 		
 		entrar.addActionListener(menu);
 	}
-	
-	public void actionPerformed(ActionEvent e) {
+
+	public void actionPerformed(ActionEvent e) {  // metodo para captar ação do usuario
 		Object src = e.getSource();
-		
+	
+	// chamada de tela baseado no clique em determinado botao
 		if (src == entrar) {
 			new TelaCadastro().cadastrar(1, dados, 0);
 			janela.setVisible(false);
@@ -75,6 +90,10 @@ public class TelaMenu implements ActionListener {
 		
 		if (src == canal) {
 			new TelaInfo().exibirInfo(2, dados);
+		}
+		
+		if (src == programa) {
+			new TelaInfo().exibirInfo(3, dados);
 		}
 		
 		if (src == usuario) {

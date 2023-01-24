@@ -28,6 +28,14 @@ public class Dados {
 		this.programas = programas;
 	}
 	
+	public int getIndexCanal(int i) {
+		return programas[i].getIndexCanal();
+	}
+	
+	public void setIndexCanal(int i) {
+		this.programas[i].setIndexCanal(i);
+	}
+	
 	public Ator[] getAtores() {
 		return atores;
 	}
@@ -77,6 +85,17 @@ public class Dados {
 	}
 	
 	// Métodos
+	public void dadosPreCadastrados() {
+		boolean[] dias = {false, true, false, true, true, false, false};
+		
+		for (int i = 0; i < 3; i++) {
+			canais[i] = new Canal("Canal " + (i+1), "Emissora " + (i+1), (i+1), "Todos", 0, false);
+			programas[i] = new Programa("Programa " + (i+1), dias, 12, 30, "Genero " + (i+1), "Livre", 90, 12, 2, canais[i].getNome(), i);
+		}
+		qtdCanais = 3;
+		qtdProgramas = 3;
+	}
+	
 	public void adicionarUsuario(Usuario u, int pos) {
 		this.usuario[pos] = u;
 		qtdUsuarios++;
@@ -86,6 +105,20 @@ public class Dados {
 		this.canais[pos] = c;
 		if (pos == qtdCanais) {
 			qtdCanais++;
+		}
+	}
+	
+	public void adicionarPrograma(Programa p, int pos) {
+		this.programas[pos] = p;
+		if (pos == qtdProgramas) {
+			qtdProgramas++;
+		}
+	}
+	
+	public void adicionarAtor(Ator a, int pos) {
+		this.atores[pos] = a;
+		if (pos == qtdAtores) {
+			qtdAtores++;
 		}
 	}
 }

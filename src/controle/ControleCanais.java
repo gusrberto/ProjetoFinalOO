@@ -39,6 +39,15 @@ public class ControleCanais {
 		return c[i].getPublicoAlvo();
 	}
 	
+	public String getFavorito(int i) {
+		String sFavorito = String.valueOf(c[i].getFavorito());
+		return sFavorito;
+	}
+	
+	public boolean getFav(int i) {
+		return c[i].getFavorito();
+	}
+	
 	// Métodos
 	public String[] getListaNomes() {
 		String[] s = new String[qtdCanais];
@@ -47,5 +56,16 @@ public class ControleCanais {
 		}
 		return s;
 	}
+	
+	public String[] getListaFavoritos() {
+		String[] s = new String[qtdCanais];
+		for (int i = 0; i < qtdCanais; i++) {
+			if (c[i].getFavorito() == true) {
+				s[i] = c[i].getNome();
+			}
+		}
+		return s;
+	}
+	
 	
 }

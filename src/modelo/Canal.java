@@ -7,6 +7,7 @@ public class Canal {
     private int numeroCanal;
     private String publicoAlvo;
     private int qtdProgramas;
+    private boolean favorito;
     private Programa[] programas = new Programa[30];
     
     // Construtor
@@ -15,12 +16,13 @@ public class Canal {
     }
     
     public Canal(String nome, String emissora, int numCanal, String publicoAlvo,
-    		int qtdProgramas) {
+    		int qtdProgramas, boolean favorito) {
     	this.nome = nome;
     	this.emissora = emissora;
     	this.numeroCanal = numCanal;
     	this.publicoAlvo = publicoAlvo;
     	this.qtdProgramas = qtdProgramas;
+    	this.favorito = favorito;
     }
     
     // to String
@@ -75,6 +77,14 @@ public class Canal {
     
     public int getQtdProgramas() {
     	return qtdProgramas;
+    }
+    
+    public void setFavorito(boolean favorito) {
+    	this.favorito = favorito;
+    }
+    
+    public boolean getFavorito() {
+    	return favorito;
     }
     // Métodos
     public void adicionarPrograma(Programa p) {
