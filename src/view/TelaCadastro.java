@@ -31,14 +31,12 @@ public class TelaCadastro implements ActionListener {
 	private JTextField txtNomeUsuario, txtNomeAtor, txtIdadeUsuario, txtIdadeAtor, txtNick, txtFuncao;
 	private JTextField txtNomeCanal, txtEmissora, txtNumero, txtPublico;
 	private JTextField txtNomePrograma, txtGenero, txtClassificacao, txtDuracao;
-	private JButton botaoAddElenco, botaoContinuar, botaoExcluir, botaoAdd, botaoAtt;
+	private JButton botaoAddElenco, botaoContinuar, botaoExcluir;
 	private JCheckBox checkDom, checkSeg, checkTer, checkQua, checkQui, checkSex, checkSab, checkFav;
 	private JComboBox comboHoras, comboMin, comboCanal;
-	private JList<String> listaAtores;
 	private String[] vetorAux = new String[20];
 	private boolean[] vetorAuxDias = new boolean[7];
 	private boolean fav = false, erroDia;
-	private String[] vetorAtores = new String[50];
 	private int tp, posicao;
 	private static ControleDados dados;
 	private String jframeS;
@@ -206,9 +204,9 @@ Metodo para criação das telas de cadastro
 			checkSex = new JCheckBox("S");
 			checkSab = new JCheckBox("S");
 			
-			comboHoras = new JComboBox(horas);
-			comboMin = new JComboBox(min);
-			comboCanal = new JComboBox(nomeCanais);
+			comboHoras = new JComboBox<>(horas);
+			comboMin = new JComboBox<>(min);
+			comboCanal = new JComboBox<>(nomeCanais);
 			
 			if (tipo == 3) {
 				txtNomePrograma = new JTextField(150);
@@ -321,56 +319,6 @@ Metodo para criação das telas de cadastro
 			comboHoras.addActionListener(this);
 			comboMin.addActionListener(this);
 		}
-		if(tipo == 4 || tipo == 7){
-			janela = new JFrame(jframeS);
-			
-			labelNome = new JLabel("Nome: ");
-			labelIdade = new JLabel("Idade: ");
-			labelFuncao = new JLabel("Função: ");
-			
-			listaAtores = new JList<String>(vetorAtores);
-			
-			txtNomeAtor = new JTextField(150);
-			txtIdadeAtor = new JTextField(150);
-			txtFuncao = new JTextField(150);
-			
-			botaoAdd = new JButton("Adicionar");
-			botaoAtt = new JButton("Atualizar");
-			
-			labelNome.setBounds(40, 40, 150, 20);
-			labelIdade.setBounds(40, 70, 150, 20);
-			labelFuncao.setBounds(40, 100, 150, 20);
-						
-			listaAtores.setBounds(270, 40, 140, 160);
-			listaAtores.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-			listaAtores.setVisibleRowCount(10);
-			
-			txtNomeAtor.setBounds(100, 40, 150, 20);
-			txtIdadeAtor.setBounds(100, 70, 150, 20);
-			txtFuncao.setBounds(100, 100, 150, 20);
-			
-			botaoAdd.setBounds(100, 130, 100, 30);
-			botaoAtt.setBounds(290, 210, 100, 30);
-		
-			this.janela.add(labelNome);
-			this.janela.add(labelIdade);
-			this.janela.add(labelFuncao);
-			this.janela.add(txtNomeAtor);
-			this.janela.add(txtIdadeAtor);
-			this.janela.add(txtFuncao);
-			this.janela.add(listaAtores);
-			this.janela.add(botaoAdd);
-			this.janela.add(botaoAtt);
-			
-			this.janela.setLayout(null);
-			this.janela.setSize(450, 300);
-			this.janela.setVisible(true);
-			
-			botaoAdd.addActionListener(this);
-			botaoAtt.addActionListener(this);
-		}
-		
-	
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -378,7 +326,7 @@ Metodo para criação das telas de cadastro
 		
 		if (src == botaoContinuar) {
 			try {
-				boolean aux;
+				boolean aux = false;
 				if (tp == 1) { // Login Usuário
 					vetorAux[0] = Integer.toString(dados.getQtdUsuarios());
 				} else if (tp == 2) { // Cria o canal
@@ -393,13 +341,17 @@ Metodo para criação das telas de cadastro
 					vetorAux[1] = txtNomeUsuario.getText();
 					vetorAux[2] = txtIdadeUsuario.getText();
 					vetorAux[3] = txtNick.getText();
-					aux = dados.loginUsuario(vetorAux);
+					if (!(txtNomeUsuario.getText().isBlank() || txtNick.getText().isBlank())) aux = dados.loginUsuario(vetorAux);
 				} else if (tp == 2 || tp == 5) { // Cria ou edita o canal
 					vetorAux[1] = txtNomeCanal.getText();
 					vetorAux[2] = txtEmissora.getText();
 					vetorAux[3] = txtNumero.getText();
+					vetorAux[4] = txtPublico.getText();
 					if (checkFav.isSelected()) fav = true;
-					aux = dados.criarCanal(vetorAux, fav);
+					if (!(txtNomeCanal.getText().isBlank() || txtEmissora.getText().isBlank() ||
+							txtPublico.getText().isBlank())) {
+						aux = dados.criarCanal(vetorAux, fav);
+					}
 				} else if (tp == 3 || tp == 6) { // Cria ou edita o programa
 					vetorAux[1] = txtNomePrograma.getText();
 					vetorAux[2] = (String) comboHoras.getSelectedItem();
@@ -421,17 +373,16 @@ Metodo para criação das telas de cadastro
 					if (vetorAuxDias[0] == true || vetorAuxDias[1] == true || vetorAuxDias[2] == true ||
 						vetorAuxDias[3] == true || vetorAuxDias[4] == true || vetorAuxDias[5] == true ||
 						vetorAuxDias[0] == true) {
-						aux = dados.criarPrograma(vetorAux, vetorAuxDias);
-						erroDia = false;
+						if (!(txtNomePrograma.getText().isBlank() || txtGenero.getText().isBlank() ||
+								txtClassificacao.getText().isBlank())) {
+							aux = dados.criarPrograma(vetorAux, vetorAuxDias);
+							erroDia = false;
+						}
 					} else {
 						erroDia = true;
 						mensagemErroDia();
-						aux = false;
 					}
-				} else {
-					aux = false;
 				}
-				
 				if (tp == 1) {
 					if (aux) {
 						mensagemSucessoLogin();
@@ -480,7 +431,7 @@ Metodo para criação das telas de cadastro
 		
 	}
 	
-	// mensagens de aviso de sucesso / erro 
+	// Mensagens de aviso de sucesso ou erro
 	public void mensagemSucessoLogin() {
 		JOptionPane.showMessageDialog(null, "Login bem-sucedido!", null,
 									  JOptionPane.INFORMATION_MESSAGE);

@@ -74,30 +74,30 @@ Método para criação dos menus
 	
 	
 	public static void main(String[] args) {
-		TelaMenu menu = new TelaMenu(1); // criaçao da primeira tela 
+		TelaMenu menu = new TelaMenu(1); // Criação da primeira tela 
 		
 		entrar.addActionListener(menu);
 	}
 
-	public void actionPerformed(ActionEvent e) {  // metodo para captar ação do usuario
+	public void actionPerformed(ActionEvent e) {  // Método para captar ação do usuário
 		Object src = e.getSource();
 	
-	// chamada de tela baseado no clique em determinado botao
+	// Chamada de tela baseado no clique em determinado botão
 		if (src == entrar) {
 			new TelaCadastro().cadastrar(1, dados, 0);
 			janela.setVisible(false);
 		}
 		
 		if (src == canal) {
-			new TelaInfo().exibirInfo(2, dados);
+			new TelaInfo().exibirInfo(2, dados, 0, 0);
 		}
 		
 		if (src == programa) {
-			new TelaInfo().exibirInfo(3, dados);
+			new TelaInfo().exibirInfo(3, dados, 0, 0);
 		}
 		
 		if (src == usuario) {
-			new TelaInfo().exibirInfo(1, dados);
+			new TelaInfo().exibirInfo(1, dados, 0, 0);
 		}
 		
 	}

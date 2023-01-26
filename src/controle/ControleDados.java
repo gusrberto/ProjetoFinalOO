@@ -132,16 +132,14 @@ public class ControleDados {
 			while (dados.getCanais()[c].getNome().compareTo(canalExcluido) != 0) {
 				c++;
 			}
-			for (int k = c; k < dados.getQtdCanais() - 1; k++) { // 2 5  6 2
+			for (int k = c; k < dados.getQtdCanais() - 1; k++) {
 				dados.getCanais()[k] = null;
 				dados.getCanais()[k] = dados.getCanais()[k+1];
 			}
 			dados.getCanais()[dados.getQtdCanais()] = null;
 			dados.setQtdCanais(getQtdCanais() - 1);
-			//dados.getProgramas()[0].setIndexCanal(1);
 			for (int m = i; m < dados.getQtdCanais(); m++) {
 				for (int n = 0; n < dados.getQtdProgramas(); n++) {
-					//System.out.println(dados.getProgramas()[0].getIndexCanal());
 					if (dados.getCanais()[m].getNome().compareTo(dados.getProgramas()[n].getCanal()) == 0) {
 						dados.getProgramas()[n].setIndexCanal(dados.getProgramas()[n].getIndexCanal() - 1);
 					}
@@ -149,6 +147,27 @@ public class ControleDados {
 			}
 		}
 		
+	}
+	
+	public int buscarPrograma(String nomeProg) {
+		for (int i = 0; i < dados.getQtdProgramas(); i++) {
+			if (dados.getProgramas()[i].getNome().compareTo(nomeProg) == 0) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public boolean verificacaoProgDiaria(int indexCanal, int indexDia) {
+		String nomeCanal = dados.getCanais()[indexCanal].getNome();
+		
+		for (int i = 0; i < dados.getQtdProgramas(); i++) {
+			if (dados.getProgramas()[i].getCanal().compareTo(nomeCanal) == 0 &&
+				dados.getProgramas()[i].getDiaDeExibicao()[indexDia]) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

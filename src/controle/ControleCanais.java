@@ -5,12 +5,16 @@ import modelo.*;
 public class ControleCanais {
 	// Atributos
 	private Canal[] c;
+	private Programa[] p;
 	private int qtdCanais;
+	private int qtdProgramas;
 	
 	// Construtor
 	public ControleCanais(ControleDados d) {
 		c = d.getCanais();
+		p = d.getProgramas();
 		qtdCanais = d.getQtdCanais();
+		qtdProgramas = d.getQtdProgramas();
 	}
 	
 	// Gets e Sets
@@ -67,5 +71,22 @@ public class ControleCanais {
 		return s;
 	}
 	
+	public String[] exibirProgDiaria(int indexCanal, int indexDia) {
+		String nomeCanal = c[indexCanal].getNome();
+		String[] progDia = new String[50];
+		int j = 0;
+		
+		for (int i = 0; i < qtdProgramas; i++) {
+			if (p[i].getCanal().compareTo(nomeCanal) == 0 &&
+					p[i].getDiaDeExibicao()[indexDia]) {
+				progDia[j] = String.format("%02d", p[i].getHorarioDeExibicao()) + ":" +
+						 	String.format("%02d", p[i].getMinExibicao()) + "       " +
+						 	p[i].getNome();
+				j++;
+			}
+		}
+		
+		return progDia;
+	}
 	
 }
