@@ -7,14 +7,15 @@ import javax.swing.event.*;
 import controle.*;
 
 /**
+ * Classe com todas as telas de informações.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
 
-Classe com todas as telas de Informações
-
-@author Gustavo, Felipe
-@since 2023
-@version 1.0
-*/
 public class TelaInfo implements ActionListener, ListSelectionListener {
+	// Atributos
 	private JFrame janela;
 	private JButton botaoCriarCanal, botaoExibirProg, botaoBuscarProg, botaoCriarPrograma;
 	private JButton botaoAtualizarPerfil, botaoAtualizarCanal, botaoAtualizarProgramas;
@@ -30,13 +31,16 @@ public class TelaInfo implements ActionListener, ListSelectionListener {
 	private static ControleDados dados;
 	private static ControleUsuario userDados;
 	private JList<String> listaNomesCanais, listaNomesProgramas;
-	private int posicao, posicao2;
+	private int posicao, posicao2;	
 	
-/**
-Método para criação das telas contendo as informações
-@param tipo de tela
-@param d - variável da classe de controle contendo os dados  
-*/
+	/**
+	 * Cria as telas contendo as informações cadastradas.
+	 * 
+	 * @param tipo de tela
+	 * @param d Objeto da classe ControleDados
+	 * @param pos Índice do canal/programa para busca
+	 * @param pos2 Posição do dia de exibição na array
+	 */
 	
 	public void exibirInfo(int tipo, ControleDados d, int pos, int pos2) {
 		dados = d;
@@ -159,7 +163,7 @@ Método para criação das telas contendo as informações
 			janela = new JFrame("Buscar Programa");
 			String diasExib = "";
 			
-			if (dados.getProgramas()[posicao].getDiaDeExibicao()[0] == true) {
+			if (dados.getProgramas()[posicao].getDiaDeExibicao()[0] == true) { // Montando a string dos dias de exibição
 				diasExib = " Dom,";
 			}
 			if (dados.getProgramas()[posicao].getDiaDeExibicao()[1] == true) {
@@ -181,7 +185,7 @@ Método para criação das telas contendo as informações
 				diasExib = diasExib + " Sáb,";
 			}
 			
-			diasExib = diasExib.substring(0, diasExib.length()-1);
+			diasExib = diasExib.substring(0, diasExib.length()-1); // Remove a vírgula do final da string
 			
 			labelNomePrograma = new JLabel(dados.getProgramas()[posicao].getNome());
 			labelNomePrograma.setFont(new Font("Arial", Font.BOLD, 20));
@@ -216,7 +220,7 @@ Método para criação das telas contendo as informações
 		if(tipo == 5){
 			janela = new JFrame("Programação Diária");
 
-			titulo = new JLabel("Canal");
+			titulo = new JLabel(dados.getCanais()[posicao].getNome());
 			titulo.setFont(new Font("Arial", Font.BOLD, 20));
 			
 			listaExibirProgramacao = new ControleCanais(dados).exibirProgDiaria(posicao, posicao2);
@@ -234,7 +238,6 @@ Método para criação das telas contendo as informações
 			this.janela.setSize(450, 320);
 			this.janela.setVisible(true);
 			
-			//listaNomesProgramas.addListSelectionListener(this);
 		}
 	}			
 	
@@ -275,7 +278,7 @@ Método para criação das telas contendo as informações
 	}
 
 
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged(ListSelectionEvent e) { // Método para captar ação do usuário na JList
 		Object src = e.getSource();
 		
 		if (src == listaNomesCanais && e.getValueIsAdjusting()) {

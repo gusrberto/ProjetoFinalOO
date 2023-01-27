@@ -1,6 +1,17 @@
 package controle;
 
+import java.util.Arrays;
+
 import modelo.*;
+
+/**
+ * Classe que controla os atributos da classe canal utilizando-se da classe ControleDados,
+ * além de conter métodos de listagem relacionados a classe Canal.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
 
 public class ControleCanais {
 	// Atributos
@@ -10,6 +21,14 @@ public class ControleCanais {
 	private int qtdProgramas;
 	
 	// Construtor
+	
+	/**
+	 * Cria um objeto da classe ControleCanais a partir de um objeto da classe ControleDados,
+	 * contém as informações de canal e programa.
+	 * 
+	 * @param d Objeto da classe de ControleDados
+	 */
+	
 	public ControleCanais(ControleDados d) {
 		c = d.getCanais();
 		p = d.getProgramas();
@@ -53,6 +72,13 @@ public class ControleCanais {
 	}
 	
 	// Métodos
+	
+	/**
+	 * Retorna a lista de nomes dos canais cadastrados.
+	 * 
+	 * @return String[]
+	 */
+	
 	public String[] getListaNomes() {
 		String[] s = new String[qtdCanais];
 		for (int i = 0; i < qtdCanais; i++) {
@@ -60,6 +86,12 @@ public class ControleCanais {
 		}
 		return s;
 	}
+	
+	/**
+	 * Retorna a lista de nomes dos canais que tem a checkBox "Favorito" marcada.
+	 * 
+	 * @return String[]
+	 */
 	
 	public String[] getListaFavoritos() {
 		String[] s = new String[qtdCanais];
@@ -71,12 +103,30 @@ public class ControleCanais {
 		return s;
 	}
 	
+	/**
+	 * Recebe dois índices e retorna uma array de String ordenada pelo horário contendo em cada posição o horário
+	 * e o nome do programa que é exibido naquele dia.
+	 * 
+	 * @param indexCanal Posição da opção do canal no comboBox
+	 * @param indexDia Posição do dia no qual a programação irá ser exibida no comboBox
+	 * @return String[]
+	 */
+	
 	public String[] exibirProgDiaria(int indexCanal, int indexDia) {
 		String nomeCanal = c[indexCanal].getNome();
-		String[] progDia = new String[50];
-		int j = 0;
 		
-		for (int i = 0; i < qtdProgramas; i++) {
+		int j = 0, m = 0;
+		
+		for (int k = 0; k < qtdProgramas; k++) { // Verifica a quantidade de programas afim de definir o tamanho da array de retorno
+			if (p[k].getCanal().compareTo(nomeCanal) == 0 &&
+					p[k].getDiaDeExibicao()[indexDia]) {
+				m++;
+			}
+		}
+		
+		String[] progDia = new String[m];
+		
+		for (int i = 0; i < qtdProgramas; i++) { // Salva em cada posição da array o horário e o nome do programa
 			if (p[i].getCanal().compareTo(nomeCanal) == 0 &&
 					p[i].getDiaDeExibicao()[indexDia]) {
 				progDia[j] = String.format("%02d", p[i].getHorarioDeExibicao()) + ":" +
@@ -85,6 +135,8 @@ public class ControleCanais {
 				j++;
 			}
 		}
+		
+		Arrays.sort(progDia); // Ordena a array
 		
 		return progDia;
 	}

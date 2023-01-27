@@ -4,20 +4,31 @@ import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.*;
 import controle.*;
+
 /**
-Classe com as informações das telas de busca e exibição 
-*/
-public class TelaFunc implements ActionListener{
+ * Classe com as telas de busca e exibição.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
+public class TelaFunc implements ActionListener {
+	// Atributos
     private static ControleDados dados; 
     private JFrame janela;
     private JLabel labelPrograma, labelDia, labelCanal;
     private JButton botaoBuscar, botaoExibir;
     private JTextField txtNome;
     private JComboBox comboDia, comboCanal;
-/**
-Metodo para criação das telas de busca e exibição
-@param tipo de tela
-*/
+    
+    /**
+     * Cria tela para busca e exibição.
+     * 
+     * @param tipo de tela
+     * @param d Objeto da classe ControleDados
+     */
+
 	public void TelaFuncionalidade(int tipo, ControleDados d){
 		dados = d;
 		
@@ -85,7 +96,7 @@ Metodo para criação das telas de busca e exibição
 
     }
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // Método para captar ação do usuário
 		Object src = e.getSource();
 		
 		if (src == botaoBuscar) {
@@ -138,6 +149,7 @@ Metodo para criação das telas de busca e exibição
 		
 	}
 	
+	// Mensagens de erro de exibição/busca
 	public void mensagemErroBusca() {
 		JOptionPane.showMessageDialog(null, "ERRO NA BUSCA!\n" + "Verifique as informações", null,
 									  JOptionPane.ERROR_MESSAGE);

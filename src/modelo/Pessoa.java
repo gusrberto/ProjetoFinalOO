@@ -1,5 +1,13 @@
 package modelo;
 
+/**
+ * Classe abstrata que contém os atributos de pessoa.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public abstract class Pessoa {
 	// Atributos
 	protected String nome;

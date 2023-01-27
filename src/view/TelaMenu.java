@@ -6,14 +6,15 @@ import java.awt.event.*;
 import controle.*;
 
 /**
+ * Classe com todas as telas de menu.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
 
-Classe com todas as telas de menu
-
-@author Gustavo, Felipe
-@since 2023
-@version 1.0
-*/
 public class TelaMenu implements ActionListener {
+	// Atributos
 	private static JFrame janela;
 	private static JLabel titulo;
 	private static JButton entrar;
@@ -22,10 +23,13 @@ public class TelaMenu implements ActionListener {
 	private static JButton usuario;
 	public static ControleDados dados = new ControleDados();
 	
-/**
-Método para criação dos menus  
-@param tipo Tipo de tela
-*/
+	// Construtor
+	
+	/**
+	 * Cria as telas de menu do programa.
+	 * 
+	 * @param tipo de tela
+	 */
 	
 	public TelaMenu(int tipo) {
 		janela = new JFrame("Programação da TV");

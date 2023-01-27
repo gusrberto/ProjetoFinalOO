@@ -15,38 +15,42 @@ import modelo.*;
 import controle.*;
 
 /**
+ * Classe com todas as telas de cadastro.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
 
-Classe com todas as telas de cadastro
-
-@author Gustavo, Felipe
-@since 2023
-@version 1.0
-*/
 public class TelaCadastro implements ActionListener {
+	// Atributos
 	private JFrame janela;
-	private JLabel titulo;
-	private JLabel labelNome, labelIdade, labelNick, labelFuncao;
+	private JLabel titulo, subtitulo;
+	private JLabel labelNome, labelIdade, labelNick, labelNomeDiretor, labelIdadeDiretor, labelTrabProd;
 	private JLabel labelEmissora, labelNumero, labelPublico, labelFavorito;
 	private JLabel labelDias, labelHorario, labelGenero, labelClassificacao, labelDuracao, labelDuraMin,labelHrs, labelMin, labelCanal;
-	private JTextField txtNomeUsuario, txtNomeAtor, txtIdadeUsuario, txtIdadeAtor, txtNick, txtFuncao;
+	private JTextField txtNomeUsuario, txtIdadeUsuario, txtNick;
 	private JTextField txtNomeCanal, txtEmissora, txtNumero, txtPublico;
-	private JTextField txtNomePrograma, txtGenero, txtClassificacao, txtDuracao;
+	private JTextField txtNomePrograma, txtGenero, txtClassificacao, txtDuracao, txtNomeDiretor, txtIdadeDiretor, txtTrabProd;
 	private JButton botaoAddElenco, botaoContinuar, botaoExcluir;
 	private JCheckBox checkDom, checkSeg, checkTer, checkQua, checkQui, checkSex, checkSab, checkFav;
 	private JComboBox comboHoras, comboMin, comboCanal;
 	private String[] vetorAux = new String[20];
 	private boolean[] vetorAuxDias = new boolean[7];
+	private Diretor diretorAux;
 	private boolean fav = false, erroDia;
 	private int tp, posicao;
 	private static ControleDados dados;
 	private String jframeS;
 	
-/**
-Metodo para criação das telas de cadastro
-@param tipo de tela
-@param d - variavel da classe de controle contendo os dados
-@param pos - posição do objeto no vetor 	
-*/
+	/**
+	 * Cria tela para cadastro/edição dos dados do programa.
+	 * 
+	 * @param tipo de tela
+	 * @param d Objeto da classe ControleDados
+	 * @param pos Posição do objeto no array de dados
+	 */
+	
 	public void cadastrar(int tipo, ControleDados d, int pos) {
 		tp = tipo;
 		dados = d;
@@ -109,7 +113,7 @@ Metodo para criação das telas de cadastro
 			labelNumero = new JLabel("Número do canal: ");
 			labelPublico = new JLabel("Público alvo: ");
 			labelFavorito = new JLabel("Favorito? ");
-			if (tipo == 2) {
+			if (tipo == 2) { // Criar canal
 				txtNomeCanal = new JTextField(150);
 				txtEmissora = new JTextField(150);
 				txtNumero = new JTextField(50);
@@ -119,7 +123,7 @@ Metodo para criação das telas de cadastro
 				botaoContinuar = new JButton("Criar");
 			}
 			
-			if (tipo == 5) {
+			if (tipo == 5) { // Editar canal
 				txtNomeCanal = new JTextField(dados.getCanais()[pos].getNome(), 150);
 				txtEmissora = new JTextField(dados.getCanais()[pos].getEmissora(), 150);
 				txtNumero = new JTextField(String.valueOf(dados.getCanais()[pos].getNumCanal()), 50);
@@ -174,8 +178,9 @@ Metodo para criação das telas de cadastro
 	 	if (tipo == 3 || tipo == 6){
 			janela = new JFrame(jframeS); 
 			
+			 // Declaração de lista para a ComboBox
 			String[] horas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
-					"13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
+					"13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};  
 			
 			String[] min = {"00", "15", "30", "45"};
 			
@@ -185,6 +190,8 @@ Metodo para criação das telas de cadastro
 				nomeCanais[i] = dados.getCanais()[i].getNome();
 			}
 			
+			subtitulo = new JLabel("Diretor");
+			subtitulo.setFont(new Font("Arial", Font.BOLD, 15));
 			labelDias = new JLabel("Dias de Exibição: ");
 			labelNome = new JLabel("Nome: ");
 			labelHorario = new JLabel("Horario de Exibição: ");
@@ -195,6 +202,9 @@ Metodo para criação das telas de cadastro
 			labelHrs = new JLabel("horas");
 			labelMin = new JLabel("min");
 			labelCanal = new JLabel("Canal: ");
+			labelNomeDiretor = new JLabel("Nome: ");
+			labelIdadeDiretor = new JLabel("Idade: ");
+			labelTrabProd = new JLabel("Qtd Trabalhos Produzidos:");						
 			
 			checkDom = new JCheckBox("D");
 			checkSeg = new JCheckBox("S");
@@ -208,20 +218,26 @@ Metodo para criação das telas de cadastro
 			comboMin = new JComboBox<>(min);
 			comboCanal = new JComboBox<>(nomeCanais);
 			
-			if (tipo == 3) {
+			if (tipo == 3) { // Criar programa
 				txtNomePrograma = new JTextField(150);
 				txtGenero = new JTextField(150);
 				txtClassificacao = new JTextField(150);
 				txtDuracao = new JTextField(150);
+				txtNomeDiretor = new JTextField(150);
+				txtIdadeDiretor = new JTextField(150);
+				txtTrabProd = new JTextField(150);
 				
 				botaoContinuar = new JButton("Criar");
 			}
 			
-			if (tipo == 6) {
+			if (tipo == 6) { // Editar programa
 				txtNomePrograma = new JTextField(dados.getProgramas()[pos].getNome(), 150);
 				txtGenero = new JTextField(dados.getProgramas()[pos].getGenero(), 150);
 				txtClassificacao = new JTextField(dados.getProgramas()[pos].getClassIndicativa(), 150);
 				txtDuracao = new JTextField(String.valueOf(dados.getProgramas()[pos].getDuracao()), 150);
+				txtNomeDiretor = new JTextField(dados.getProgramas()[pos].getDiretor().getNome(), 150);
+				txtIdadeDiretor = new JTextField(String.valueOf(dados.getProgramas()[pos].getDiretor().getIdade()), 150);
+				txtTrabProd = new JTextField(String.valueOf(dados.getProgramas()[pos].getDiretor().getTrabalhosProduzidos()), 150);
 				
 				comboHoras.setSelectedIndex(dados.getProgramas()[pos].getIndexHrs());
 				comboMin.setSelectedIndex(dados.getProgramas()[pos].getIndexMin());
@@ -237,10 +253,8 @@ Metodo para criação das telas de cadastro
 				
 				botaoContinuar = new JButton("Salvar");
 				botaoExcluir = new JButton("Excluir");
-				botaoExcluir.setBounds(230, 230, 80, 40);
+				botaoExcluir.setBounds(230, 370, 80, 40);
 			}
-			
-			botaoAddElenco = new JButton("Adicionar Radialista");
 			
 			labelDias.setBounds(40, 20, 150, 20);
 			
@@ -263,6 +277,14 @@ Metodo para criação das telas de cadastro
 			
 			labelCanal.setBounds(40, 200, 150, 20);
 			
+			subtitulo.setBounds(40, 230, 150, 30);
+			labelNomeDiretor.setBounds(40, 260, 150, 20);
+			labelIdadeDiretor.setBounds(40, 290, 150, 20);
+			labelTrabProd.setBounds(40, 320, 150, 20);
+			txtNomeDiretor.setBounds(180, 260 , 150, 20);
+			txtIdadeDiretor.setBounds(180, 290, 150, 20);
+			txtTrabProd.setBounds(195, 320, 150, 20);
+			
 			checkDom.setBounds(140, 15, 40, 30);
 			checkSeg.setBounds(180, 15, 40, 30);
 			checkTer.setBounds(220, 15, 40, 30);
@@ -275,9 +297,9 @@ Metodo para criação das telas de cadastro
 			comboMin.setBounds(270, 80, 40, 20);
 			comboCanal.setBounds(180, 200, 150, 20);
 			
-			botaoAddElenco.setBounds(40, 230, 150, 40);
-			botaoContinuar.setBounds(330, 230, 80, 40);
+			botaoContinuar.setBounds(330, 370, 80, 40);
 			
+			this.janela.add(subtitulo);
 			this.janela.add(labelDias);
 			this.janela.add(labelNome);
 			this.janela.add(labelHorario);
@@ -288,12 +310,18 @@ Metodo para criação das telas de cadastro
 			this.janela.add(labelHrs);
 			this.janela.add(labelMin);
 			this.janela.add(labelCanal);
+			this.janela.add(labelIdadeDiretor);
+			this.janela.add(labelNomeDiretor);
+			this.janela.add(labelTrabProd);
 			this.janela.add(txtNomePrograma);
 			this.janela.add(txtGenero);
 			this.janela.add(txtClassificacao);
 			this.janela.add(txtDuracao);
-			this.janela.add(botaoAddElenco);
+			this.janela.add(txtNomeDiretor);
+			this.janela.add(txtIdadeDiretor);
+			this.janela.add(txtTrabProd);
 			this.janela.add(botaoContinuar);
+
 			
 			if (tipo == 6) this.janela.add(botaoExcluir);
 			
@@ -310,21 +338,20 @@ Metodo para criação das telas de cadastro
 			this.janela.add(comboCanal);
 			
 			this.janela.setLayout(null);
-			this.janela.setSize(450, 320);
+			this.janela.setSize(450, 480);
 			this.janela.setVisible(true);
 			
-			botaoContinuar.addActionListener(this);
-			botaoAddElenco.addActionListener(this);
+			botaoContinuar.addActionListener(this);			
 			if (tipo == 6) botaoExcluir.addActionListener(this);
 			comboHoras.addActionListener(this);
 			comboMin.addActionListener(this);
 		}
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // Método para captar ação do usuário
 		Object src = e.getSource();
 		
-		if (src == botaoContinuar) {
+		if (src == botaoContinuar) { // Cadastro ou edição
 			try {
 				boolean aux = false;
 				if (tp == 1) { // Login Usuário
@@ -363,6 +390,9 @@ Metodo para criação das telas de cadastro
 					vetorAux[8] = String.valueOf(comboMin.getSelectedIndex());
 					vetorAux[9] = (String) comboCanal.getSelectedItem();
 					vetorAux[10] = String.valueOf(comboCanal.getSelectedIndex());
+					diretorAux = new Diretor(txtNomeDiretor.getText(), Integer.parseInt(txtIdadeDiretor.getText()),
+											Integer.parseInt(txtTrabProd.getText()));
+					
 					if (checkDom.isSelected()) vetorAuxDias[0] = true;
 					if (checkSeg.isSelected()) vetorAuxDias[1] = true;
 					if (checkTer.isSelected()) vetorAuxDias[2] = true;
@@ -370,12 +400,13 @@ Metodo para criação das telas de cadastro
 					if (checkQui.isSelected()) vetorAuxDias[4] = true;
 					if (checkSex.isSelected()) vetorAuxDias[5] = true;
 					if (checkSab.isSelected()) vetorAuxDias[6] = true;
+					
 					if (vetorAuxDias[0] == true || vetorAuxDias[1] == true || vetorAuxDias[2] == true ||
 						vetorAuxDias[3] == true || vetorAuxDias[4] == true || vetorAuxDias[5] == true ||
-						vetorAuxDias[0] == true) {
+						vetorAuxDias[6] == true) {
 						if (!(txtNomePrograma.getText().isBlank() || txtGenero.getText().isBlank() ||
-								txtClassificacao.getText().isBlank())) {
-							aux = dados.criarPrograma(vetorAux, vetorAuxDias);
+								txtClassificacao.getText().isBlank() || txtNomeDiretor.getText().isBlank())) {
+							aux = dados.criarPrograma(vetorAux, vetorAuxDias, diretorAux);
 							erroDia = false;
 						}
 					} else {
@@ -383,7 +414,7 @@ Metodo para criação das telas de cadastro
 						mensagemErroDia();
 					}
 				}
-				if (tp == 1) {
+				if (tp == 1) { // Login do usuário
 					if (aux) {
 						mensagemSucessoLogin();
 						new TelaMenu(2);
@@ -392,7 +423,7 @@ Metodo para criação das telas de cadastro
 					}
 				}
 				
-				if (tp == 2 || tp == 5) {
+				if (tp == 2 || tp == 5) { // Criação ou edição do canal
 					if (aux) {
 						if (tp == 2) mensagemSucessoCadastro();
 						if (tp == 5) mensagemSucessoEdicao();
@@ -401,7 +432,7 @@ Metodo para criação das telas de cadastro
 					}
 				}
 				
-				if (tp == 3 || tp == 6) {
+				if (tp == 3 || tp == 6) { // Criação ou edição do programa
 					if (aux) {
 						if (tp == 3) mensagemSucessoCadastro();
 						if (tp == 6) mensagemSucessoEdicao();

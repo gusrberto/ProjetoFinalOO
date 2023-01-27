@@ -1,5 +1,13 @@
 package modelo;
 
+/**
+ * Classe que contém os atributos de programa.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public class Programa {
 	// Atributos
 	private String nome;
@@ -8,19 +16,32 @@ public class Programa {
 	private int minExibicao;
 	private String genero;
 	private String classificacaoIndicativa;
-	private Ator[] elenco = new Ator[30];
+	private Diretor diretor;
 	private int duracao;
 	private int indexHrs, indexMin, indexCanal;
 	private String canal;
 	
 	// Construtor
-	public Programa() {
-		super();
-	}
+	
+	/**
+	 * Cria um objeto da classe Programa.
+	 * 
+	 * @param nome do programa
+	 * @param diaDeExibicao Array boolean com uma posição para cada dia da semana
+	 * @param horarioDeExibicao do programa
+	 * @param minExibicao do programa
+	 * @param genero do programa
+	 * @param classInd do programa
+	 * @param duracao do programa (em minutos)
+	 * @param indexHrs Posição das horas selecionadas no comboBox
+	 * @param indexMin Posição dos minutos selecionados no comboBox
+	 * @param canal Nome do canal que o programa será transmitido
+	 * @param indexCanal Posição do nome do canal selecionado no comboBox
+	 */
 	
 	public Programa(String nome, boolean[] diaDeExibicao, int horarioDeExibicao,
-			int minExibicao, String genero, String classInd, int duracao, int indexHrs,
-			int indexMin, String canal, int indexCanal) {
+					int minExibicao, String genero, String classInd, int duracao, int indexHrs,
+					int indexMin, String canal, int indexCanal, Diretor diretor) {
 		this.nome = nome;
 		this.diaDeExibicao = diaDeExibicao;
 		this.horarioDeExibicao = horarioDeExibicao;
@@ -32,15 +53,9 @@ public class Programa {
 		this.indexMin = indexMin;
 		this.canal = canal;
 		this.indexCanal = indexCanal;
+		this.diretor = diretor;
 	}
 	
-	// to String
-	public String toString() {
-		return "Nome do programa: " + nome +"\nDia de Exibicao: " + diaDeExibicao + " as " + 
-				horarioDeExibicao + " horas" + "\nGenero: " + genero +
-				"\nClassificacao Indicativa: " + classificacaoIndicativa + "\nDuracao: " + duracao + " minutos"
-				+ "\nTamanho do elenco: ";
-	}
 	// Gets e Sets
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -98,14 +113,6 @@ public class Programa {
 		return duracao;
 	}
 	
-	public void setElenco(Ator[] func) {
-		this.elenco = func;
-	}
-	
-	public Ator[] getElenco() {
-		return this.elenco;
-	}
-	
 	public void setIndexHrs(int indexHrs) {
 		this.indexHrs = indexHrs;
 	}
@@ -136,6 +143,14 @@ public class Programa {
 	
 	public String getCanal() {
 		return canal;
+	}
+	
+	public void setDiretor(Diretor d) {
+		this.diretor = d;
+	}
+	
+	public Diretor getDiretor() {
+		return diretor;
 	}
 	
 	

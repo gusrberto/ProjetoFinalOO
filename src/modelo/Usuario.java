@@ -1,17 +1,31 @@
 package modelo;
 
+/**
+ * Classe que contém os atributos do usuário e herda de Pessoa.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public class Usuario extends Pessoa {
 	// Atributos
 	private String nickname;
-	private Canal[] canaisFavoritos = new Canal[30]; 
-	private int qtdCanaisFav;
 	
 	// Construtor
-	public Usuario(String nome, int idade, String nickname, int qtdCanaisFav) {
+	
+	/**
+	 * Cria um objeto da classe Usuario.
+	 * 
+	 * @param nome do usuário
+	 * @param idade do usuário
+	 * @param nickname do usuário
+	 */
+	
+	public Usuario(String nome, int idade, String nickname) {
 		this.nome = nome;
 		this.idade = idade;
 		this.nickname = nickname;
-		this.qtdCanaisFav = qtdCanaisFav;
 	}
 	
 	// Gets e Sets
@@ -23,25 +37,4 @@ public class Usuario extends Pessoa {
 		return nickname;
 	}
 	
-	public void setCanaisFavoritos(Canal[] c) {
-		this.canaisFavoritos = c;
-	}
-	
-	public Canal[] getCanaisFavoritos() {
-		return canaisFavoritos;
-	}
-	
-	public void setQtdCanaisFav(int qtdCanais) {
-		this.qtdCanaisFav = qtdCanais;
-	}
-	
-	public int getQtdCanaisFav() {
-		return qtdCanaisFav;
-	}
-	
-	// Métodos
-	public void adicionarCanalFavorito(Canal c) {
-		canaisFavoritos[this.getQtdCanaisFav()] = c;
-		this.setQtdCanaisFav(this.getQtdCanaisFav()+1);
-	}
 }

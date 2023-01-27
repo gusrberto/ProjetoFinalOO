@@ -2,19 +2,36 @@ package controle;
 
 import modelo.*;
 
+/**
+ * Classe que controla os atributos da classe Programa utilizando-se da classe ControleDados,
+ * contém um método de listagem relacionado a classe Programa.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public class ControleProgramas {
 	// Atributos
 	private Programa[] p;
-	private Ator[] a;
+	private Diretor[] dt;
 	private int qtdProgramas;
 	private int tamElenco;
 	
 	// Construtor
+	
+	/**
+	 * Cria um objeto da classe ControleProgramas a partir de um objeto da classe ControleDados,
+	 * contém informações de programas.
+	 * 
+	 * @param d Objeto da classe ControleDados
+	 */
+	
 	public ControleProgramas(ControleDados d) {
 		p = d.getProgramas();
-		a = d.getAtores();
+		dt = d.getAtores();
 		qtdProgramas = d.getQtdProgramas();
-		tamElenco = d.getQtdAtores();
+		tamElenco = d.getQtdDiretores();
 	}
 	
 	// Gets e Sets
@@ -26,24 +43,8 @@ public class ControleProgramas {
 		this.qtdProgramas = qtdProgramas;
 	}
 	
-	public int getTamElenco() {
-		return tamElenco;
-	}
-	
-	public void setTamElenco(int tamElenco) {
-		this.tamElenco = tamElenco;
-	}
-	
 	public String getNomeProg(int i) {
 		return p[i].getNome();
-	}
-	
-	public String[] getDiaDeExibicao(int i) {
-		String[] sDiaExib = new String[7];
-		for (int j = 0; j < 7; j++) {
-			sDiaExib[j] = String.valueOf(p[i].getDiaDeExibicao()[j]);
-		}
-		return sDiaExib;
 	}
 	
 	public boolean[] getDiaDeExib(int i) {
@@ -74,19 +75,26 @@ public class ControleProgramas {
 		return String.valueOf(p[i].getDuracao());
 	}
 	
-	public String getNomeAtor(int i) {
-		return a[i].getNome();
+	public String getNomeDiretor(int i) {
+		return dt[i].getNome();
 	}
 	
-	public String idadeAtor(int i) {
-		return String.valueOf(a[i].getIdade());
+	public String idadeDiretor(int i) {
+		return String.valueOf(dt[i].getIdade());
 	}
 	
-	public String getFuncaoAtor(int i) {
-		return a[i].getPapel();
+	public String getTrabProduzidos(int i) {
+		return String.valueOf(dt[i].getTrabalhosProduzidos());
 	}
 	
 	// Métodos
+	
+	/**
+	 * Retorna a lista de nomes dos programas cadastrados.
+	 * 
+	 * @return String[]
+	 */
+	
 	public String[] getListaNomes() {
 		String[] s = new String[qtdProgramas];
 		for (int i = 0; i < qtdProgramas; i++) {

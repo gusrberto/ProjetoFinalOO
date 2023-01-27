@@ -1,5 +1,13 @@
 package modelo;
 
+/**
+ * Classe que contém os atributos de canal.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public class Canal {
 	// Atributos
 	private String nome;
@@ -11,9 +19,17 @@ public class Canal {
     private Programa[] programas = new Programa[30];
     
     // Construtor
-    public Canal() {
-    	super();
-    }
+    
+    /**
+     * Cria um objeto da classe Canal.
+     * 
+     * @param nome do canal
+     * @param emissora do canal
+     * @param numCanal Número do canal
+     * @param publicoAlvo do canal
+     * @param qtdProgramas cadastrados no canal
+     * @param favorito Boolean que verifica se o canal foi favoritado
+     */
     
     public Canal(String nome, String emissora, int numCanal, String publicoAlvo,
     		int qtdProgramas, boolean favorito) {
@@ -25,11 +41,6 @@ public class Canal {
     	this.favorito = favorito;
     }
     
-    // to String
-    public String toString() {
-    	return "Nome do canal: " + nome + "\nEmissora: " + emissora +
-    			"\nNumero do canal: " + numeroCanal + "\nPublico Alvo: " + publicoAlvo;
-    }
     // Gets e Sets
     public void setNome(String nome) {
     	this.nome = nome;
@@ -85,20 +96,6 @@ public class Canal {
     
     public boolean getFavorito() {
     	return favorito;
-    }
-    // Métodos
-    public void adicionarPrograma(Programa p) {
-    	programas[this.getQtdProgramas()] = p;
-    	this.setQtdProgramas(this.getQtdProgramas()+1);
-    }
-    
-    public void listarProgramacao() {
-    	System.out.println("--------PROGRAMACAO DIARIA (" + this.getNome() + ")--------");
-    	for (int i = 0; i < this.getQtdProgramas(); i++) {
-    		System.out.println(programas[i].getNome() + " - " + 
-    		programas[i].getHorarioDeExibicao() + " horas");
-    	}
-    	System.out.println("------------------------------------------");
     }
 }
 
