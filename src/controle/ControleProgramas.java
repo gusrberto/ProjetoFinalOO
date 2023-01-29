@@ -16,7 +16,6 @@ public class ControleProgramas {
 	private Programa[] p;
 	private Diretor[] dt;
 	private int qtdProgramas;
-	private int tamElenco;
 	
 	// Construtor
 	
@@ -31,60 +30,6 @@ public class ControleProgramas {
 		p = d.getProgramas();
 		dt = d.getAtores();
 		qtdProgramas = d.getQtdProgramas();
-		tamElenco = d.getQtdDiretores();
-	}
-	
-	// Gets e Sets
-	public int getQtdProgramas() {
-		return qtdProgramas;
-	}
-	
-	public void setQtdProgramas(int qtdProgramas) {
-		this.qtdProgramas = qtdProgramas;
-	}
-	
-	public String getNomeProg(int i) {
-		return p[i].getNome();
-	}
-	
-	public boolean[] getDiaDeExib(int i) {
-		boolean[] diaExib = new boolean[7];
-		for (int j = 0; j < 7; j++) {
-			diaExib[j] = p[i].getDiaDeExibicao()[j];
-		}
-		return diaExib;
-	}
-	
-	public String getHoraExib(int i) {
-		return String.valueOf(p[i].getHorarioDeExibicao());
-	}
-	
-	public String getMinExib(int i) {
-		return String.valueOf(p[i].getMinExibicao());
-	}
-	
-	public String getGenero(int i) {
-		return p[i].getGenero();
-	}
-	
-	public String getClassInd(int i) {
-		return p[i].getClassIndicativa();
-	}
-	
-	public String getDuracao(int i) {
-		return String.valueOf(p[i].getDuracao());
-	}
-	
-	public String getNomeDiretor(int i) {
-		return dt[i].getNome();
-	}
-	
-	public String idadeDiretor(int i) {
-		return String.valueOf(dt[i].getIdade());
-	}
-	
-	public String getTrabProduzidos(int i) {
-		return String.valueOf(dt[i].getTrabalhosProduzidos());
 	}
 	
 	// Métodos
@@ -102,5 +47,58 @@ public class ControleProgramas {
 		}
 		return s;
 	}
+	
+	// Gets e Sets
+		public int getQtdProgramas() {
+			return qtdProgramas;
+		}
+		
+		public void setQtdProgramas(int qtdProgramas) {
+			this.qtdProgramas = qtdProgramas;
+		}
+		
+		public String getNomeProg(int i) {
+			return p[i].getNome();
+		}
+		
+		public boolean[] getDiaDeExib(int i) {
+			boolean[] diaExib = new boolean[7];
+			for (int j = 0; j < 7; j++) {
+				diaExib[j] = p[i].getDiaDeExibicao()[j];
+			}
+			return diaExib;
+		}
+		
+		public String getHoraExib(int i) {
+			return String.valueOf(p[i].getHorarioDeExibicao());
+		}
+		
+		public String getMinExib(int i) {
+			return String.valueOf(p[i].getMinExibicao());
+		}
+		
+		public String getGenero(int i) {
+			return p[i].getGenero();
+		}
+		
+		public String getClassInd(int i) {
+			return p[i].getClassIndicativa();
+		}
+		
+		public String getDuracao(int i) {
+			return String.valueOf(p[i].getDuracao());
+		}
+		
+		public String getNomeDiretor(int i) {
+			return dt[i].getNome();
+		}
+		
+		public String idadeDiretor(int i) {
+			return String.valueOf(dt[i].getIdade());
+		}
+		
+		public String getTrabProduzidos(int i) {
+			return String.valueOf(dt[i].getTrabalhosProduzidos());
+		}
 	
 }

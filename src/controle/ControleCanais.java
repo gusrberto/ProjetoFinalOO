@@ -35,42 +35,6 @@ public class ControleCanais {
 		qtdCanais = d.getQtdCanais();
 		qtdProgramas = d.getQtdProgramas();
 	}
-	
-	// Gets e Sets
-	public int getQtdCanais() {
-		return qtdCanais;
-	}
-	
-	public void setQtdCanais(int qtdCanais) {
-		this.qtdCanais = qtdCanais;
-	}
-	
-	public String getNomeCanal(int i) {
-		return c[i].getNome();
-	}
-	
-	public String getEmissora(int i) {
-		return c[i].getEmissora();
-	}
-	
-	public String getNumCanal(int i) {
-		String sNumCanal = String.valueOf(c[i].getNumCanal());
-		return sNumCanal;
-	}
-	
-	public String getPublicoAlvo(int i) {
-		return c[i].getPublicoAlvo();
-	}
-	
-	public String getFavorito(int i) {
-		String sFavorito = String.valueOf(c[i].getFavorito());
-		return sFavorito;
-	}
-	
-	public boolean getFav(int i) {
-		return c[i].getFavorito();
-	}
-	
 	// Métodos
 	
 	/**
@@ -140,5 +104,41 @@ public class ControleCanais {
 		
 		return progDia;
 	}
+	
+	// Gets e Sets
+		public int getQtdCanais() {
+			return qtdCanais;
+		}
+		
+		public void setQtdCanais(int qtdCanais) {
+			this.qtdCanais = qtdCanais;
+		}
+		
+		public String getNomeCanal(int i) {
+			return c[i].getNome();
+		}
+		
+		public String getEmissora(int i) {
+			return c[i].getEmissora();
+		}
+		
+		public String getNumCanal(int i) {
+			String sNumCanal = String.valueOf(c[i].getNumCanal());
+			return sNumCanal;
+		}
+		
+		public String getPublicoAlvo(int i) {
+			return c[i].getPublicoAlvo();
+		}
+		
+		public String getFavorito(int i) {
+			String sFavorito = String.valueOf(c[i].getFavorito());
+			return sFavorito;
+		}
+		
+		public boolean getFav(int i) {
+			return c[i].getFavorito();
+		}
+		
 	
 }

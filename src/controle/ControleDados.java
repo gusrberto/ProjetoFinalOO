@@ -26,47 +26,6 @@ public class ControleDados {
 		dados.dadosPreCadastrados();
 	}
 	
-	// Gets e Sets
-	public Dados getDados() {
-		return dados;
-	}
-	
-	public void setDados(Dados dados) {
-		this.dados = dados;
-	}
-	
-	public Canal[] getCanais() {
-		return this.dados.getCanais();
-	}
-	
-	public Programa[] getProgramas() {
-		return this.dados.getProgramas();
-	}
-	
-	public Diretor[] getAtores() {
-		return this.dados.getDiretor();
-	}
-	
-	public Usuario[] getUsuario() {
-		return this.dados.getUsuario();
-	}
-	
-	public int getQtdCanais() {
-		return this.dados.getQtdCanais();
-	}
-	
-	public int getQtdProgramas() {
-		return this.dados.getQtdProgramas();
-	}
-	
-	public int getQtdDiretores() {
-		return this.dados.getQtdDiretores();
-	}
-	
-	public int getQtdUsuarios() {
-		return this.dados.getQtdUsuarios();
-	}
-	
 	// Métodos
 	
 	/**
@@ -237,5 +196,46 @@ public class ControleDados {
 		}
 		return false;
 	}
+	
+	// Gets e Sets
+		public Dados getDados() {
+			return dados;
+		}
+		
+		public void setDados(Dados dados) {
+			this.dados = dados;
+		}
+		
+		public Canal[] getCanais() {
+			return this.dados.getCanais();
+		}
+		
+		public Programa[] getProgramas() {
+			return this.dados.getProgramas();
+		}
+		
+		public Diretor[] getAtores() {
+			return this.dados.getDiretor();
+		}
+		
+		public Usuario[] getUsuario() {
+			return this.dados.getUsuario();
+		}
+		
+		public int getQtdCanais() {
+			return this.dados.getQtdCanais();
+		}
+		
+		public int getQtdProgramas() {
+			return this.dados.getQtdProgramas();
+		}
+		
+		public int getQtdDiretores() {
+			return this.dados.getQtdDiretores();
+		}
+		
+		public int getQtdUsuarios() {
+			return this.dados.getQtdUsuarios();
+		}
 	
 }

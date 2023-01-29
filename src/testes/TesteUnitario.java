@@ -2,9 +2,17 @@ package testes;
 
 import static org.junit.jupiter.api.Assertions.*;
 import controle.*;
-import modelo.Diretor;
-
+import modelo.*;
 import org.junit.jupiter.api.Test;
+
+/**
+ * Classe que faz testes unitários de 3 métodos do programa ("Criar Canal", "Criar Programa"
+ * e "Verificar Programação Diária").
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
 
 class TesteUnitario {
 
@@ -48,13 +56,19 @@ class TesteUnitario {
 		
 	}
 	
-	/*
 	@Test
-	void testVerificacaoProgDiaria() {
-		String nc1 = "Globo";
-		String[] np = {"DF-TV", "Vale a pena ver de novo", "TV Globinho"};
+	void testVerificarProgDiaria() {
+		Dados d = new Dados();
+		Diretor d1 = new Diretor("José", 25, 10);
+		boolean[] b1 = {false, true, false, true, true, false, false}; // Dom Seg Ter Qua Qui Sex Sáb
+		Canal c1 = new Canal("Globo", "Rede Globo", 10, "Todos", 0, false);
+		Programa p1 = new Programa("Jornal Nacional", b1, 21, 30, "Notícias", "Livre", 120, 21, 2, "Globo", 0, d1);
 		
+		d.adicionarCanal(c1, 0);
+		d.adicionarPrograma(p1, 0);
 		
+		assertFalse(new ControleDados().verificacaoProgDiaria(0, 2)); // Não há programas sendo transmitidos na terça
+		assertTrue(new ControleDados().verificacaoProgDiaria(0, 4)); // Há ao menos um programa sendo transmitido na quinta
 	}
-	*/
+	
 }
