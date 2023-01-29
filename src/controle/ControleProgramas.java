@@ -21,14 +21,14 @@ public class ControleProgramas {
 	
 	/**
 	 * Cria um objeto da classe ControleProgramas a partir de um objeto da classe ControleDados,
-	 * contém informações de programas.
+	 * contém informações de programas e diretor.
 	 * 
 	 * @param d Objeto da classe ControleDados
 	 */
 	
 	public ControleProgramas(ControleDados d) {
 		p = d.getProgramas();
-		dt = d.getAtores();
+		dt = d.getDiretor();
 		qtdProgramas = d.getQtdProgramas();
 	}
 	

@@ -51,16 +51,17 @@ public class ControleDados {
 	 * 
 	 * @param dadosCanal Vetor de string contendo as informações dadas pelo usuário no cadastro/edição do canal
 	 * @param favorito Boolean que diz se a checkBox de favorito foi marcada
+	 * @param programas Array de objetos da classe Programa
 	 * @return boolean
 	 */
 	
-	public boolean criarCanal(String[] dadosCanal, boolean favorito) {
+	public boolean criarCanal(String[] dadosCanal, boolean favorito, Programa[] programas) {
 		if (!dadosCanal[3].matches("[0-9]+")) { // Verifica se no campo número do canal foi passado um número
 			return false;
 		} else {
 			Canal c = new Canal(dadosCanal[1], dadosCanal[2],
-					  Integer.parseInt(dadosCanal[3]), dadosCanal[4], 0,
-					  favorito); // Instancia um novo canal
+					  Integer.parseInt(dadosCanal[3]), dadosCanal[4], Integer.parseInt(dadosCanal[5]),
+					  favorito, programas); // Instancia um novo canal
 			dados.adicionarCanal(c, Integer.parseInt(dadosCanal[0])); // Adiciona o canal a Dados
 			return true;
 		}
@@ -71,6 +72,7 @@ public class ControleDados {
 	 * 
 	 * @param dadosPrograma Vetor de string contendo as informações dadas pelo usuário no cadastro/edição do programa
 	 * @param dadosDias Array de boolean com uma posição pra cada dia da semana para verificar os dias de exibição do programa
+	 * @param diretor Objeto da classe Diretor
 	 * @return boolean
 	 */
 	
@@ -87,7 +89,14 @@ public class ControleDados {
 						  dadosPrograma[5], Integer.parseInt(dadosPrograma[6]),
 						  Integer.parseInt(dadosPrograma[7]), Integer.parseInt(dadosPrograma[8]), dadosPrograma[9],
 						  Integer.parseInt(dadosPrograma[10]), diretor); // Instancia um novo programa
-			dados.adicionarPrograma(p, Integer.parseInt(dadosPrograma[0])); // Adiciona o programa a Dados
+			
+			Canal c = dados.encontraCanal(dadosPrograma[9]); // Encontra o canal que o programa será adicionado
+			
+			if (c == null) {
+				return false;
+			}
+			
+			dados.adicionarPrograma(p, Integer.parseInt(dadosPrograma[0]), c); // Adiciona o programa a Dados
 			return true;
 		}
 	}
@@ -127,13 +136,16 @@ public class ControleDados {
 	public void excluirCanal(int i) {
 		String canalExcluido = dados.getCanais()[i].getNome();
 		String programaExcluido;
-		
-		for (int j = 0; j < dados.getQtdProgramas(); j++) { // Exclusão de todos os programas transmitidos no canal
-			programaExcluido = dados.getProgramas()[j].getCanal();
-			if (canalExcluido.compareTo(programaExcluido) == 0) {
-				excluirPrograma(j);
-				j--;
+
+		for (int j = 0; j < dados.getCanais()[i].getQtdProgramas(); j++) { // Exclusão de todos os programas transmitidos no canal
+			programaExcluido = dados.getCanais()[i].getProgramas()[j].getNome();
+			for (int l = 0; l < dados.getQtdProgramas(); l++) {
+				if (dados.getProgramas()[l].getNome().compareTo(programaExcluido) == 0) {
+					excluirPrograma(l);
+					l--;
+				}
 			}
+			
 		}
 		
 		if (i == (dados.getQtdCanais() - 1)) { // Caso o canal seja o último da array
@@ -214,7 +226,7 @@ public class ControleDados {
 			return this.dados.getProgramas();
 		}
 		
-		public Diretor[] getAtores() {
+		public Diretor[] getDiretor() {
 			return this.dados.getDiretor();
 		}
 		

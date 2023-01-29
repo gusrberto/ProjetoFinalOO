@@ -37,6 +37,7 @@ public class TelaCadastro implements ActionListener {
 	private JComboBox comboHoras, comboMin, comboCanal;
 	private String[] vetorAux = new String[20];
 	private boolean[] vetorAuxDias = new boolean[7];
+	Programa[] p = new Programa[30];
 	private Diretor diretorAux;
 	private boolean fav = false, erroDia;
 	private int tp, posicao;
@@ -377,7 +378,13 @@ public class TelaCadastro implements ActionListener {
 					if (checkFav.isSelected()) fav = true;
 					if (!(txtNomeCanal.getText().isBlank() || txtEmissora.getText().isBlank() ||
 							txtPublico.getText().isBlank())) {
-						aux = dados.criarCanal(vetorAux, fav);
+						if (tp == 5) {
+							p = dados.getCanais()[posicao].getProgramas();
+							vetorAux[5] = String.valueOf(dados.getCanais()[posicao].getQtdProgramas());
+						} else {
+							vetorAux[5] = "0";
+						}
+						aux = dados.criarCanal(vetorAux, fav, p);
 					}
 				} else if (tp == 3 || tp == 6) { // Cria ou edita o programa
 					vetorAux[1] = txtNomePrograma.getText();

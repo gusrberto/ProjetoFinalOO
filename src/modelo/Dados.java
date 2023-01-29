@@ -31,13 +31,29 @@ public class Dados {
 		
 		for (int i = 0; i < 3; i++) {
 			diretores[i] = new Diretor("Diretor " + (i+1), 30, 10);
-			canais[i] = new Canal("Canal " + (i+1), "Emissora " + (i+1), (i+1), "Todos", 0, false);
+			canais[i] = new Canal("Canal " + (i+1), "Emissora " + (i+1), (i+1), "Todos", 0, false, new Programa[30]);
 			programas[i] = new Programa("Programa " + (i+1), dias, 12, 30, "Genero " + (i+1), "Livre", 90, 12, 2, canais[i].getNome(), i,
 					diretores[i]);
+			adicionarCanal(canais[i], qtdCanais);
+			adicionarDiretor(diretores[i], qtdDiretores);
+			adicionarPrograma(programas[i], qtdProgramas, canais[i]);
 		}
-		qtdDiretores = 3;
-		qtdCanais = 3;
-		qtdProgramas = 3;
+	}
+	
+	/**
+	 * Retorna o objeto Canal a partir de seu nome.
+	 * 
+	 * @param nomeCanal 
+	 * @return Canal Objeto da classe canal
+	 */
+	
+	public Canal encontraCanal(String nomeCanal) {
+		for (int i = 0; i < qtdCanais; i++) {
+			if (canais[i].getNome().compareTo(nomeCanal) == 0) {
+				return canais[i];
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -71,19 +87,21 @@ public class Dados {
 	 * 
 	 * @param p Objeto da classe Programa
 	 * @param pos Posição do objeto na array de programas
+	 * @param c Objeto da classe Canal
 	 */
 	
-	public void adicionarPrograma(Programa p, int pos) {
+	public void adicionarPrograma(Programa p, int pos, Canal c) {
 		this.programas[pos] = p;
+		c.adicionarPrograma(p, c.getQtdProgramas()); // Adiciona o programa a classe Canal
 		if (pos == qtdProgramas) {
 			qtdProgramas++;
 		}
 	}
 	
 	/**
+	 * Adiciona um diretor a classe Dados.
 	 * 
-	 * 
-	 * @param d Objeto da classe ator
+	 * @param d Objeto da classe diretor
 	 * @param pos Posição do objeto na array de diretores
 	 */
 	

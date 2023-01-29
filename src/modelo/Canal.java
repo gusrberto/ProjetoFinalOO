@@ -29,16 +29,34 @@ public class Canal {
      * @param publicoAlvo do canal
      * @param qtdProgramas cadastrados no canal
      * @param favorito Boolean que verifica se o canal foi favoritado
+     * @param programas Array de objetos da classe programa
      */
     
     public Canal(String nome, String emissora, int numCanal, String publicoAlvo,
-    		int qtdProgramas, boolean favorito) {
+    		int qtdProgramas, boolean favorito, Programa[] programas) {
     	this.nome = nome;
     	this.emissora = emissora;
     	this.numeroCanal = numCanal;
     	this.publicoAlvo = publicoAlvo;
     	this.qtdProgramas = qtdProgramas;
     	this.favorito = favorito;
+    	this.programas = programas;
+    }
+    
+    // Métodos
+    
+    /**
+     * Adiciona um programa a classe Canal.
+     * 
+     * @param p Objeto da classe Programa
+     * @param pos Posição do objeto na array de programas
+     */
+    
+    public void adicionarPrograma(Programa p, int pos) {
+    	this.programas[pos] = p;
+    	if (pos == qtdProgramas) {
+			qtdProgramas++;
+		}
     }
     
     // Gets e Sets

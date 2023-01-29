@@ -37,6 +37,7 @@ public class Programa {
 	 * @param indexMin Posição dos minutos selecionados no comboBox
 	 * @param canal Nome do canal que o programa será transmitido
 	 * @param indexCanal Posição do nome do canal selecionado no comboBox
+	 * @param diretor do programa
 	 */
 	
 	public Programa(String nome, boolean[] diaDeExibicao, int horarioDeExibicao,
