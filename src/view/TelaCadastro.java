@@ -40,7 +40,7 @@ public class TelaCadastro implements ActionListener {
 	Programa[] p = new Programa[30];
 	private Diretor diretorAux;
 	private boolean fav = false, erroDia;
-	private int tp, posicao;
+	private int tp, posicao, posicaoCnAnt;
 	private static ControleDados dados;
 	private String jframeS;
 	
@@ -243,6 +243,7 @@ public class TelaCadastro implements ActionListener {
 				comboHoras.setSelectedIndex(dados.getProgramas()[pos].getIndexHrs());
 				comboMin.setSelectedIndex(dados.getProgramas()[pos].getIndexMin());
 				comboCanal.setSelectedIndex(dados.getProgramas()[pos].getIndexCanal());
+				posicaoCnAnt = comboCanal.getSelectedIndex();
 				
 				if (dados.getProgramas()[pos].getDiaDeExibicao()[0] == true) checkDom.setSelected(true);
 				if (dados.getProgramas()[pos].getDiaDeExibicao()[1] == true) checkSeg.setSelected(true);
@@ -413,6 +414,11 @@ public class TelaCadastro implements ActionListener {
 						vetorAuxDias[6] == true) {
 						if (!(txtNomePrograma.getText().isBlank() || txtGenero.getText().isBlank() ||
 								txtClassificacao.getText().isBlank() || txtNomeDiretor.getText().isBlank())) {
+							if (tp == 6) {
+								if (dados.getProgramas()[posicao].getCanal().compareTo(vetorAux[9]) != 0) {
+									dados.getCanais()[posicaoCnAnt].excluirPrograma(txtNomePrograma.getText());
+								}
+							}
 							aux = dados.criarPrograma(vetorAux, vetorAuxDias, diretorAux);
 							erroDia = false;
 						}
@@ -448,9 +454,10 @@ public class TelaCadastro implements ActionListener {
 					}
 				}
 				
-			} catch (NullPointerException erroNulo) {
+			}/* catch (NullPointerException erroNulo) {
+				
 				mensagemErroLogin();
-			} catch (NumberFormatException erroFormat) {
+			}*/ catch (NumberFormatException erroFormat) {
 				mensagemErroLogin();
 			}
 		}

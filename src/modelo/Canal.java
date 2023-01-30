@@ -59,6 +59,37 @@ public class Canal {
 		}
     }
     
+    /**
+     * Exclui um determinado programa.
+     * 
+     * @param nomePrograma
+     */
+    
+    public void excluirPrograma(String nomePrograma) {
+    	int i;
+    	for (i = 0; i < this.getQtdProgramas(); i++) { // Acha a posição do programa a ser excluído
+    		if (this.getProgramas()[i].getNome().compareTo(nomePrograma) == 0) {
+    			break;
+    		}
+    	}
+		
+		if (i == (this.getQtdProgramas() - 1)) { // Caso o programa seja o último da array
+			this.setQtdProgramas(this.getQtdProgramas() - 1); 
+			this.getProgramas()[this.getQtdProgramas()] = null; 
+		} else { // Caso não seja o último da array
+			int c = 0;
+			while (this.getProgramas()[c].getNome().compareTo(nomePrograma) != 0) { // Busca pelo programa a ser excluído
+				c++;
+			}
+			for (int j = c; j < this.getQtdProgramas() - 1; j++) {
+				this.getProgramas()[j] = null;
+				this.getProgramas()[j] = this.getProgramas()[j+1];
+			}
+			this.getProgramas()[this.getQtdProgramas()] = null;
+			this.setQtdProgramas(getQtdProgramas() - 1);
+		}
+	}
+    
     // Gets e Sets
     public void setNome(String nome) {
     	this.nome = nome;
