@@ -39,10 +39,10 @@ public class TelaCadastro implements ActionListener {
 	private boolean[] vetorAuxDias = new boolean[7];
 	Programa[] p = new Programa[30];
 	private Diretor diretorAux;
-	private boolean fav = false, erroDia;
+	private boolean fav = false, erroDia, programaExistente;
 	private int tp, posicao, posicaoCnAnt;
 	private static ControleDados dados;
-	private String jframeS;
+	private String jframeS, txtNomeCanalAnt, txtNomeProgAnt;
 	
 	/**
 	 * Cria tela para cadastro/edição dos dados do programa.
@@ -355,7 +355,10 @@ public class TelaCadastro implements ActionListener {
 		
 		if (src == botaoContinuar) { // Cadastro ou edição
 			try {
+				int cont1 = 0, cont2 = 0;
 				boolean aux = false;
+				boolean canalExistente = false;
+				boolean programaExistente = false;
 				if (tp == 1) { // Login Usuário
 					vetorAux[0] = Integer.toString(dados.getQtdUsuarios());
 				} else if (tp == 2) { // Cria o canal
@@ -382,10 +385,30 @@ public class TelaCadastro implements ActionListener {
 						if (tp == 5) {
 							p = dados.getCanais()[posicao].getProgramas();
 							vetorAux[5] = String.valueOf(dados.getCanais()[posicao].getQtdProgramas());
+							txtNomeCanalAnt = dados.getCanais()[posicao].getNome();
+							if (vetorAux[1].compareTo(txtNomeCanalAnt) == 0) cont1--;
+							for (int m = 0; m < dados.getQtdProgramas(); m++) {
+								if (dados.getProgramas()[m].getCanal().compareTo(txtNomeCanalAnt) == 0) {
+									dados.getProgramas()[m].setCanal(vetorAux[1]);
+								}
+							}
 						} else {
 							vetorAux[5] = "0";
 						}
-						aux = dados.criarCanal(vetorAux, fav, p);
+						for (int k = 0; k < dados.getQtdCanais(); k++) {
+							if (dados.getCanais()[k].getNome().compareTo(vetorAux[1]) == 0) {
+								cont1++;
+							}
+						}
+						
+						if (cont1 >= 1) { // Caso um canal com esse nome já tenha sido cadastrado
+							canalExistente = true;
+						}
+						
+						if (canalExistente == false) {
+							aux = dados.criarCanal(vetorAux, fav, p);
+						}
+						
 					}
 				} else if (tp == 3 || tp == 6) { // Cria ou edita o programa
 					vetorAux[1] = txtNomePrograma.getText();
@@ -418,8 +441,21 @@ public class TelaCadastro implements ActionListener {
 								if (dados.getProgramas()[posicao].getCanal().compareTo(vetorAux[9]) != 0) {
 									dados.getCanais()[posicaoCnAnt].excluirPrograma(txtNomePrograma.getText());
 								}
+								txtNomeProgAnt = dados.getProgramas()[posicao].getNome();
+								if(vetorAux[1].compareTo(txtNomeProgAnt) == 0) cont2--;
+								
 							}
-							aux = dados.criarPrograma(vetorAux, vetorAuxDias, diretorAux);
+							for (int l = 0; l < dados.getQtdProgramas(); l++) {
+								if (dados.getProgramas()[l].getNome().compareTo(vetorAux[1]) == 0) {
+									cont2++;
+								}
+							}
+							if (cont2 >= 1) { // Caso um programa com esse nome já tenha sido cadastrado
+								programaExistente = true;
+							}
+							if (programaExistente == false) {
+								aux = dados.criarPrograma(vetorAux, vetorAuxDias, diretorAux);
+							}
 							erroDia = false;
 						}
 					} else {
@@ -441,7 +477,8 @@ public class TelaCadastro implements ActionListener {
 						if (tp == 2) mensagemSucessoCadastro();
 						if (tp == 5) mensagemSucessoEdicao();
 					} else {
-						mensagemErroCadastro();
+						if (canalExistente == false) mensagemErroCadastro();
+						else mensagemCanalExistente();
 					}
 				}
 				
@@ -450,14 +487,14 @@ public class TelaCadastro implements ActionListener {
 						if (tp == 3) mensagemSucessoCadastro();
 						if (tp == 6) mensagemSucessoEdicao();
 					} else if (!aux && erroDia == false) {
-						mensagemErroCadastro();
+						if (programaExistente == false) mensagemErroCadastro();
+						else mensagemProgramaExistente();
 					}
 				}
 				
-			}/* catch (NullPointerException erroNulo) {
-				
+			} catch (NullPointerException erroNulo) {
 				mensagemErroLogin();
-			}*/ catch (NumberFormatException erroFormat) {
+			} catch (NumberFormatException erroFormat) {
 				mensagemErroLogin();
 			}
 		}
@@ -520,5 +557,15 @@ public class TelaCadastro implements ActionListener {
 		JOptionPane.showMessageDialog(null, "Canal junto de seus programas excluídos com sucesso!", null,
 									  JOptionPane.INFORMATION_MESSAGE);
 		this.janela.dispose();
+	}
+	
+	public void mensagemCanalExistente() {
+		JOptionPane.showMessageDialog(null, "Um canal com esse nome já existe! Tente outro.", null,
+									  JOptionPane.ERROR_MESSAGE);	
+	}
+	
+	public void mensagemProgramaExistente() {
+		JOptionPane.showMessageDialog(null, "Um programa com esse nome já existe! Tente outro.", null,
+				  JOptionPane.ERROR_MESSAGE);
 	}
 }

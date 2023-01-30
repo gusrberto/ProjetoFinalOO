@@ -1,10 +1,27 @@
 package modelo;
 
+/**
+ * Classe que contém os atributos do diretor e herda de Pessoa.
+ * 
+ * @author Gustavo, Felipe
+ * @since 2023
+ * @version 1.0
+ */
+
 public class Diretor extends Pessoa {
 	// Atributos
 	private int trabalhosProduzidos;
 	
 	// Construtor
+	
+	/**
+	 * Cria um objeto da classe Diretor.
+	 * 
+	 * @param nome do diretor
+	 * @param idade do diretor
+	 * @param trabalhosProduzidos Qtd de trabalhos produzidos pelo diretor
+	 */
+	
 	public Diretor(String nome, int idade, int trabalhosProduzidos) {
 		this.nome = nome;
 		this.idade = idade;

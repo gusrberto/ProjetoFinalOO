@@ -105,6 +105,7 @@ public class ControleCanais {
 		return progDia;
 	}
 	
+	
 	// Gets e Sets
 		public int getQtdCanais() {
 			return qtdCanais;
